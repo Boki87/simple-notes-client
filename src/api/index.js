@@ -3,7 +3,10 @@ import axios from "axios";
 const s3url = `https://simple-notes-avatars.s3.eu-central-1.amazonaws.com`;
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL:
+    process.env.NODE_ENV == "production"
+      ? "https://simple-notes-backend.herokuapp.com/"
+      : "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
