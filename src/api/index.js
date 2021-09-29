@@ -2,11 +2,12 @@ import axios from "axios";
 
 const s3url = `https://simple-notes-avatars.s3.eu-central-1.amazonaws.com`;
 
-const api = axios.create({
-  baseURL:
-    process.env.NODE_ENV == "production"
+const apiUrl = process.env.NODE_ENV == "production"
       ? "https://simple-notes-api-vq656.ondigitalocean.app"
       : "http://localhost:8000",
+
+const api = axios.create({
+  baseURL:apiUrl,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -27,4 +28,4 @@ api.interceptors.request.use(
   }
 );
 
-export { api, s3url };
+export { api, s3url, apiUrl };

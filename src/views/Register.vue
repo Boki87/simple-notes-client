@@ -43,7 +43,7 @@
                 </div>
             </form>
                 <div class="mt-5">
-                    <a href="http://localhost:8000/api/login/google">
+                    <a :href="googleAuth">
                         <AppButton :loading="loading" :disabled="loading">          
                             <i class="fab fa-google"></i>
                         </AppButton> 
@@ -54,6 +54,7 @@
     </div>
 </template>
 <script>
+import {apiUrl} from '../api'
 import {reactive, ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
@@ -91,12 +92,14 @@ export default {
         })
     }
 
+        let googleAuth = apiUrl + 'api/login/google'
 
         return {
             form,
             attemptLogin,
             loading,
-            error
+            error,
+            googleAuth
         }
     },
 }
