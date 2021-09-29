@@ -48,7 +48,6 @@
     </div>
 </template>
 <script>
-import {apiUrl} from '../api'
 import {reactive, ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
@@ -85,7 +84,7 @@ export default {
         })
     }
 
-        let googleAuth = apiUrl + 'api/login/google'
+        let googleAuth = 'https://simple-notes-api-vq656.ondigitalocean.app/api/login/google'
 
         return {
             form,
