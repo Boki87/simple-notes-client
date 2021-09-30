@@ -69,9 +69,9 @@ export default {
         const router = useRouter()
 
         let form = reactive({
-            name: 'guest',
-            email: 'guest@gmail.com',
-            password: '1234567',            
+            name: '',
+            email: '',
+            password: '',            
         })
 
         let error = ref(false)
