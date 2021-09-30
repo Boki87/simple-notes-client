@@ -12,6 +12,8 @@ Its basically a simple CRUD app with added auth functionality:
 
 Plus there is a small section where you can update your avatar picture which is uploaded to **Amazon S3**
 
+[DEMO](https://simple-notes-client.netlify.app/)
+
 ### Login
 
 ![login screen](/screens/login.jpg)
