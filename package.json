@@ -7,6 +7,10 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/typography": "^0.4.1",
+    "@tiptap/starter-kit": "^2.0.0-beta.140",
+    "@tiptap/vue-3": "^2.0.0-beta.80",
     "axios": "^0.21.4",
     "date-fns": "^2.24.0",
     "lodash": "^4.17.21",

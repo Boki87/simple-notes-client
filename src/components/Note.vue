@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showNote" class="flex-grow h-full p-5">
+    <div v-if="showNote" class="flex-grow h-full p-5 overflow-y-auto">
         <div v-if="!loadingNote && note" class="mx-auto max-w-[800px] min-w-[300px] flex flex-col h-full">
             <div class="w-full border-b border-gray-200 mb-5 flex items-center h-14 space-x-3 text-gray-600">
                     <span class="text-lg">{{ folderName }}</span>
@@ -19,7 +19,7 @@
                     </div>
             </div>
             <div class="flex-grow flex flex-col">
-                <input type="text" class="border-none text-4xl font-bold pt-3 outline-none" :value="note.title" @input="noteTitleChangeHandler">
+                <input type="text" class="border-none text-4xl font-bold pt-3 outline-none focus:outline-none" :value="note.title" @input="noteTitleChangeHandler">
                 
                 <p class="mb-8 mt-2">
                     <span class="text-gray-500">
@@ -28,11 +28,11 @@
                     <span class="text-gray-700 font-bold">
                         {{updatedAt}}
                     </span>
-                </p>
-
+                </p>                
                 
-
-                <textarea class="outline-none flex-grow resize-none" placeholder="Note content here" :value="note.body" @input="noteBodyChangeHandler"></textarea>
+                <EditorContent class="flex-grow overflow-auto" :editor="editor" />
+                
+                <!-- <textarea class="outline-none flex-grow resize-none" placeholder="Note content here" :value="note.body" @input="noteBodyChangeHandler"></textarea> -->
             </div>
         </div>
         <div v-if="loadingNote" class="w-full h-full flex items-center justify-center text-3xl">
@@ -48,7 +48,14 @@ import useFolders from '../api/useFolders'
 import {debounce} from '../utils'
 import {format} from 'date-fns'
 import useConfirmModal from '../components/confirmDialog/useConfirmModal'
+import {useEditor, EditorContent} from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
+
 export default {
+    components: {
+        EditorContent
+    },
+
     setup() {
         const router = useRouter()
         const route = useRoute()
@@ -59,9 +66,22 @@ export default {
 
         const showNote = ref(false)
         const updatedAt = ref(null)
-
+        let flag = ref(null)
         const {openConfirmDialog} = useConfirmModal()
 
+        const editor = useEditor({
+            content: '',
+            extensions: [StarterKit],
+            editorProps: {
+                attributes: {
+                    class: 'text-gray-600 prose prose-sm lg:prose focus:outline-none h-full max-h-full overflow-auto'
+                }
+            },
+            onUpdate: (context) => {                
+                note.value.body = context.editor.getHTML()
+                flag.value = +new Date()
+            }
+        })
 
         let folderName = computed(() => {
             return folders.value.filter(folder => folder.id == route.query.folder)[0].name
@@ -72,17 +92,17 @@ export default {
             return format(new Date(timstamp), 'dd MMM yy, h:mm a')
         }
 
-        function updateNotApiCall() {
+        function updateNoteApiCall() {
             updateNote(route.query.note, note.value)
             updatedAt.value = formatDate(new Date())
         }
 
         watch(() => route.query.note, () => {     
             if(route.query.note) {
-                console.log('fetch note')
                 fetchNote(route.query.note).then(res => {
                     note.value = res
                     updatedAt.value = formatDate(note.value.updated_at)
+                    editor.value.commands.setContent(res.body)
                 })  
                 .catch(err => {
                     showNote.value = false    
@@ -92,8 +112,7 @@ export default {
                 showNote.value = false
             }
         })
-
-        let flag = ref(null)
+        
         function noteTitleChangeHandler(event) {
             note.value.title = event.target.value
            flag.value = +new Date()
@@ -120,7 +139,7 @@ export default {
         }
 
         watch(() => flag.value, debounce(() => {                            
-                updateNotApiCall()
+                updateNoteApiCall()
             }, 500), {deep: true, immediate:false})
 
         return {
@@ -132,7 +151,8 @@ export default {
             updatedAt,
             noteTitleChangeHandler,
             noteBodyChangeHandler,
-            confirmDelete
+            confirmDelete,
+            editor
         }
     },
 }

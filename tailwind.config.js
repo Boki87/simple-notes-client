@@ -11,5 +11,5 @@ module.exports = {
       transitionDuration: ["active", "hover", "focus"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
