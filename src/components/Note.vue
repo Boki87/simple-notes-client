@@ -29,7 +29,23 @@
                         {{updatedAt}}
                     </span>
                 </p>                
-                
+                <div v-if="editor" class="flex flex-wrap gap-2 mb-4">
+                    
+                    <button @click="editor.chain().focus().toggleHeading({level: 1}).run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('heading', { level: 1 })}">h1</button>
+                    <button @click="editor.chain().focus().toggleHeading({level: 2}).run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('heading', { level: 2 })}">h2</button>
+                    <button @click="editor.chain().focus().toggleHeading({level: 3}).run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('heading', { level: 3 })}">h3</button>
+                    <button @click="editor.chain().focus().toggleHeading({level: 4}).run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('heading', { level: 4 })}">h4</button>
+                    
+                    <button @click="editor.chain().focus().toggleBold().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm font-bold" :class="{'bg-gray-300': editor.isActive('bold')}">B</button>
+
+                    <button @click="editor.chain().focus().toggleItalic().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm italic" :class="{'bg-gray-300': editor.isActive('italic')}">I</button>
+
+                    <button @click="editor.chain().focus().toggleBulletList().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('bulletList')}">ul</button>
+                    <button @click="editor.chain().focus().toggleOrderedList().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('orderedList')}">ol</button>
+
+                    <button @click="editor.chain().focus().toggleCodeBlock().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('codeBlock')}">CODE</button>
+                    
+                </div>
                 <EditorContent class="flex-grow overflow-auto" :editor="editor" />
                 
                 <!-- <textarea class="outline-none flex-grow resize-none" placeholder="Note content here" :value="note.body" @input="noteBodyChangeHandler"></textarea> -->
