@@ -5,7 +5,9 @@
 
         <transition name="modal-animtaion-inner">
             <div @click.stop v-show="modalActive" class="min-h-[100px] max-w-[500px] bg-white rounded-md shadow-md relative m-auto mt-16">
-                    <i v-if="!notClosable" @click="emitClose" class="fas fa-times absolute top-2 right-2 p-1 cursor-pointer"></i>
+                    <div v-if="!notClosable && !hideClose" @click="emitClose" class="w-7 h-7 bg-transparent absolute top-2 right-2 p-1 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200">
+                        <i class="fas fa-times"></i>
+                    </div>
                     
                     <div class="text-lg text-center py-2">
                         <slot name="title"></slot>
@@ -30,6 +32,9 @@ export default {
         notClosable: {
             type: Boolean,   
             required: false         
+        },
+        hideClose: {
+            type: Boolean            
         }
     },
     emits: ['closeModal'],

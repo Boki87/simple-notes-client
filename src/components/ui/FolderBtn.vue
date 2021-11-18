@@ -4,7 +4,10 @@
             <i class="fas fa-folder-open"></i>
             <span>{{ folder.name }}</span>
         </div>
-        <i class="fas fa-ellipsis-h" @click="showOptions = !showOptions"></i>
+
+        <div class="w-6 h-6 rounded-full bg-transparent flex items-center justify-center hover:bg-gray-500 hover:text-white">
+            <i class="fas fa-ellipsis-h" @click="showOptions = !showOptions"></i>
+        </div>
 
         <div v-if="showOptions" v-click-away="closeOptions" class="absolute top-11 right-1 w-32 z-10 shadow-md rounded-md bg-white overflow-hidden">
             <div @click="deleteFolder" class="h-9 border-b border-gray-300 border-opacity-50 flex items-center pl-3 hover:bg-gray-50 space-x-2">

@@ -36,14 +36,32 @@
                     <button @click="editor.chain().focus().toggleHeading({level: 3}).run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('heading', { level: 3 })}">h3</button>
                     <button @click="editor.chain().focus().toggleHeading({level: 4}).run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('heading', { level: 4 })}">h4</button>
                     
-                    <button @click="editor.chain().focus().toggleBold().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm font-bold" :class="{'bg-gray-300': editor.isActive('bold')}">B</button>
+                    <button @click="editor.chain().focus().toggleBold().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm font-bold" :class="{'bg-gray-300': editor.isActive('bold')}">
+                        <i class="fas fa-bold"></i>
+                    </button>
 
-                    <button @click="editor.chain().focus().toggleItalic().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm italic" :class="{'bg-gray-300': editor.isActive('italic')}">I</button>
+                    <button @click="editor.chain().focus().toggleItalic().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm italic" :class="{'bg-gray-300': editor.isActive('italic')}">
+                        <i class="fas fa-italic"></i>
+                    </button>
 
-                    <button @click="editor.chain().focus().toggleBulletList().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('bulletList')}">ul</button>
-                    <button @click="editor.chain().focus().toggleOrderedList().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('orderedList')}">ol</button>
+                    <button @click="editor.chain().focus().toggleBulletList().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('bulletList')}">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <button @click="editor.chain().focus().toggleOrderedList().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('orderedList')}">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
 
-                    <button @click="editor.chain().focus().toggleCodeBlock().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('codeBlock')}">CODE</button>
+                    <button @click="editor.chain().focus().toggleCodeBlock().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm" :class="{'bg-gray-300': editor.isActive('codeBlock')}">
+                        <i class="fas fa-code"></i>
+                    </button>
+
+                    <button @click="editor.chain().focus().setHorizontalRule().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm">
+                        <i class="fas fa-ruler-horizontal"></i>
+                    </button>
+
+                    <button @click="editor.chain().focus().setHardBreak().run()" class="px-3 h-6 flex items-center justify-center border border-gray-400 rounded-sm">
+                        br
+                    </button>
                     
                 </div>
                 <EditorContent class="flex-grow overflow-auto" :editor="editor" />
@@ -140,7 +158,7 @@ export default {
         }
 
         function confirmDelete() {
-            openConfirmDialog('Sure you want to delte this note?', () => {
+            openConfirmDialog('Sure you want to delete this note?', () => {
                 deleteNote(note.value.id)
                 .then(res => {
                     router.replace({

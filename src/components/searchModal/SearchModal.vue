@@ -1,6 +1,6 @@
 <template>
     <teleport to="#modal-container" :disabled="!isSearchModalOpen">
-        <Modal :modalActive="isSearchModalOpen" @closeModal="closeSearchModal">            
+        <Modal :modalActive="isSearchModalOpen" :hideClose="true" @closeModal="closeSearchModal">            
             <div class="w-full flex h-10 mb-4 items-center">
                 <div class="h-full flex items-center justify-center">
                     <i class="fas fa-search text-gray-500"></i>

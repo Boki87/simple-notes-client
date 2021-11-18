@@ -1,6 +1,6 @@
 <template>
     <teleport to="#modal-container" :disabled="!isConfirmOpen">
-        <Modal :modalActive="isConfirmOpen" :notClosable="true">
+        <Modal :modalActive="isConfirmOpen" :hideClose="true" @closeModal="confirmDialog(0)">
             <template v-slot:default>
                 <div class="text-center text-xl">
                     {{confirmMessage}}
